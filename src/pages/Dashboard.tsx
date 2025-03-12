@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -10,6 +9,7 @@ import { SystemStatus, AlertHistoryItem } from '@/lib/types';
 import { toast } from "sonner";
 import { Link } from 'react-router-dom';
 import Navbar from '@/components/Navbar';
+import showAlertToast from '@/components/AlertToast';
 
 const Dashboard = () => {
   const [isListening, setIsListening] = useState<boolean>(false);
@@ -23,7 +23,6 @@ const Dashboard = () => {
   const [recentAlerts, setRecentAlerts] = useState<AlertHistoryItem[]>([]);
 
   useEffect(() => {
-    // Simulate heartbeat updates
     const heartbeatInterval = setInterval(() => {
       setSystemStatus(prev => ({
         ...prev,
@@ -37,7 +36,6 @@ const Dashboard = () => {
   }, []);
 
   useEffect(() => {
-    // Update system status when listening state changes
     setSystemStatus(prev => ({
       ...prev,
       listening: isListening
@@ -60,7 +58,6 @@ const Dashboard = () => {
   };
 
   const simulateAlert = () => {
-    // Create a sample alert
     const alertTypes = [
       "Labored breathing", 
       "Call for help", 
@@ -88,11 +85,7 @@ const Dashboard = () => {
     
     setRecentAlerts(prev => [newAlert, ...prev].slice(0, 5));
     
-    toast.error("Emergency alert triggered!", {
-      description: `Detected: ${newAlert.detectedSound} (${newAlert.confidenceScore}% confidence)`,
-      icon: <ShieldAlert className="h-5 w-5" />,
-      duration: 5000,
-    });
+    showAlertToast(newAlert);
   };
 
   const statsData = [
@@ -112,7 +105,6 @@ const Dashboard = () => {
         </div>
         
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          {/* Main control card */}
           <Card className="glass-card lg:col-span-2 overflow-hidden">
             <CardHeader className="pb-2">
               <CardTitle className="text-2xl font-bold">Monitoring Control</CardTitle>
@@ -185,7 +177,6 @@ const Dashboard = () => {
             </CardContent>
           </Card>
 
-          {/* Stats and recent activity card */}
           <Card className="glass-card">
             <CardHeader className="pb-2">
               <CardTitle className="text-xl font-bold">System Overview</CardTitle>
