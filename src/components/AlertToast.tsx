@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { ShieldAlert } from 'lucide-react';
-import { toast, Toast } from 'sonner';
+import { toast } from 'sonner';
 import { AlertHistoryItem } from '@/lib/types';
 
 export const showAlertToast = (alert: AlertHistoryItem) => {
